@@ -30,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<String> imgPaths = new ArrayList<>();
                 ArrayList<String> titles  = new ArrayList<>();
 
+                String path = "/uploadfile/dongtai_ic/2.jpg /uploadfile/dongtai_ic/4.jpg /uploadfile/dongtai_ic/5.jpg " +
+                        "/uploadfile/dongtai_ic/6.jpg /uploadfile/dongtai_ic/7.jpg /uploadfile/dongtai_ic/8.jpg " +
+                        "/uploadfile/dongtai_ic/9.jpg /uploadfile/dongtai_ic/10.jpg /uploadfile/dongtai_ic/11.jpg ";
+
+                String[] ss = path.split(" ");
+                for(String s: ss){
+                    String url = "http://192.168.43.7:8989"+ File.separator+s;
+                    imgPaths.add(url);
+                    titles.add(s.substring(s.lastIndexOf("/")));
+                }
 
                 intent.putExtra("pos",pos);
                 intent.putStringArrayListExtra("imgPaths",imgPaths);

@@ -3,6 +3,7 @@ package lan.qxc.bigimagelooker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,8 +48,14 @@ public class BigImageLookerActivity extends AppCompatActivity {
 
         adapter = new BigImagePagerAdapter(this,imgPaths,titles);
         vp_bigiamge.setAdapter(adapter);
-
         vp_bigiamge.setCurrentItem(pos, true);
+
+        adapter.setLongPressListener(new BigImageLongPressListener() {
+            @Override
+            public void longPress(int pos) {
+                Toast.makeText(BigImageLookerActivity.this,"点击了第"+pos+"张图片",Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }

@@ -26,11 +26,18 @@ public class BigImagePagerAdapter extends PagerAdapter {
     private TextView tv_index;
     private TextView tv_title;
 
+    private BigImageLongPressListener longPressListener;
+
 
     public BigImagePagerAdapter(Context context,List<String> paths,List<String> titles){
         this.context = context;
         this.paths = paths;
         this.titles = titles;
+    }
+
+
+    public void setLongPressListener(BigImageLongPressListener longPressListener){
+        this.longPressListener = longPressListener;
     }
 
     @Override
@@ -49,7 +56,7 @@ public class BigImagePagerAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_bigimage_looker,null);
         pv_item_image = view.findViewById(R.id.pv_item_image);
         tv_index = view.findViewById(R.id.tv_index);
@@ -65,6 +72,15 @@ public class BigImagePagerAdapter extends PagerAdapter {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)//缓存模式
                 .into(pv_item_image);
         container.addView(view);
+
+
+        pv_item_image.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                longPressListener.longPress(position);
+                return true;
+            }
+        });
 
         return view;
     }
